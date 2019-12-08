@@ -1,17 +1,22 @@
-import React from  'react';
-import PropTypes from 'prop-types';
-import './styles/display.css';
+var React = require('react');
 
-function Display (props) {
+function Display(props) {
+
+	var visibility = props.number  > 0 ? 'visible' : 'hidden';
+
+	var style = {
+		fontSize: 110,
+		color:    'white',
+		position: 'absolute',
+		top: '10%',
+		visibility: visibility
+	};
+
 	return (
-		<div className="display">
+		<div style={style}>
 			{props.number}
 		</div>
 	);
-}
-
-Display.propTypes = {
-	number: PropTypes.number.isRequired,
 };
 
-export default Display;
+module.exports = Display;

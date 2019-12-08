@@ -1,112 +1,158 @@
 import React from 'react';
-import classnames from 'classnames';
-import Display from '../components/Display';
-import Target from '../components/Target';
-import TopNumber from '../components/TopNumber';
-import './styles/app.css';
+var random = require('./Helper').random;
+var randomColor = require('./Helper').randomColor;
+var clone = require('./Helper').clone;
+//var Display = require('./Display');
+var Target = require('./Target');
+var Score = require('./Score');
 
-class App extends React.Component{
+/*
+var playStartSound = require('./Helper').playStartSound;
+var playSongSound = require('./Helper').playSongSound;
+var pauseSongSound = require('./Helper').pauseSongSound;
+var playBleepSound = require('./Helper').playBleepSound;
+var playGameOverSound = require('./Helper').playGameOverSound;
+var Ranking = require('./Ranking');
+*/
 
-  state = {
-    game: false,
-    targets: {},
-    latestClick: 0
-  };
+class App extends React.Component {
 
-  intervals = null;
-
-  createTarget(key, ms) {
-   ms = ms || this.random(500, 2000);
-    this.intervals.push( setInterval( function() {
-        let targets = this.clone(this.state.targets);
-        let num = this.random(1, 1000*1000);
-        targets[key] = targets[key] !== 0 ? 0 : num;
-        this.setState({ targets: targets });
-    }.bind(this), ms));
-  }
-
-  hitTarget = e => {
-    if (e.target.className !== 'target') return;
-    let num = parseInt(e.target.innerText);
-    this.state.targets.forEach( function(){
-      let key = Math.random().toFixed(4);
-      this.createTarget(key);
-    });
-
-    this.setState({ latestClick: num });
-  }
-
-  random(min, max) {
-    if (arguments.length === 1) {
-      max = min;
-      min = 0;
-    }
-      const r = Math.random();
-      return Math.floor(r * (max - min) + min);
-  }
-
-  clone(obj) {
-    let newObj = {};
-    for (let prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        newObj[prop] = obj[prop];
-      }
-    }
-    return newObj;
-  }
-
-  startGame = () => {
-    this.createTarget('first', 750);
-    this.setState({
-        game: true
-    });
-  }
-
-  endGame() {
-    this.intervals.forEach(function(int){
-        clearInterval(int);
-    });
-    this.intervals = [];
-    this.setState({
-        game: false,
-        targets: {},
-        latestClick: 0
-    });
-  }
-
-  UNSAFE_componentWillMount() {
-    this.intervals = [];
-  }
-
-  componentDidUpdate(prevState) {
-    if (this.state.latestClick < prevState.latestClick) {
-        this.endGame();
-     }
-  }
-
-  render(){
-    const btnVisibility = this.state.game ? 'none' : 'inline-block';
-    const btnClassName = classnames('btn', {
-      [`btn--${btnVisibility}`]: !!btnVisibility
-    });
-
-    let targets = [];
-
-    for (let key in this.state.targets) {
-      targets.push(
-        <Target number={this.state.targets[key]} key={key} />
-      );
+    state = {
+      game: false,
+      targets: {},
+      targetNumbers: 0,
+      latestClick: 0,
+      topNumber: 200,
+      higherNumber: 0
     }
 
-    return (
-      <>
-          <TopNumber number={this.state.latestClick} game={this.state.game} />
-          <Display number={this.state.latestClick} />
-          <button className={btnClassName} onClick={this.startGame}>New Game </button>
-          <div className="target-container" onClick={this.hitTarget} >{targets}</div>
-      </>
+    intervals=  null;
+
+    createTarget(key, ms) {
+
+        ms = ms || random(500, 2000);
+        this.setState(
+            {
+                targetNumbers: this.targetNumbers + 1,
+            }
+        );
+        this.intervals.push(setInterval(function(){
+            var targets = clone(this.state.targets);
+            var num = random(1, this.state.topNumber * 1000);
+            targets[key] = targets[key] !== 0 ? 0 : num;
+            this.setState({ targets: targets });
+        }.bind(this), ms));
+    }
+
+    hitTarget = (e) => {
+        if (e.target.className !== 'target') return;
+        var num = parseInt(e.target.innerText);
+        if(this.state.targetNumbers < 24){
+            for (var target in this.state.targets) {
+                var key = Math.random().toFixed(4);
+                this.createTarget(key);
+            }
+        }
+
+        var top = this.state.topNumber;
+        var higherNumberClicked = this.state.higherNumber;
+        if(num > higherNumberClicked){
+            higherNumberClicked = num;
+            //playBleepSound();
+        }
+        this.setState({ higherNumber: higherNumberClicked, latestClick: num, topNumber: top + 200 });
+    }
+
+    startGame = () => {
+        //playSongSound();
+        this.createTarget('first', 750);
+        this.setState({
+            game: true,
+            gameOver: false,
+            latestClick:  0,
+            topNumber:    200,
+            higherNumber: 0,
+            targetNumbers: 0
+        });
+    }
+
+    playStartSound = () => {
+        //playStartSound();
+    }
+
+    endGame() {
+        //pauseSongSound();
+        //playGameOverSound();
+        this.intervals.forEach(function(int){
+            clearInterval(int);
+        });
+        this.intervals = [];
+        this.setState({
+            game:         false,
+            gameOver:     true,
+            targets:      {},
+            latestClick:  0,
+            targetNumbers: 0
+        });
+    }
+
+    componentWillMount() {
+        this.intervals = [];
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('HELLO');
+        if (this.state.latestClick < prevState.latestClick) {
+            this.endGame();
+        }
+    }
+
+    render() {
+
+        var buttonStyle = {
+            display: this.state.game ? 'none' : 'inline-block'
+        };
+
+        var hintStyle = {
+            display: this.state.game ? 'none' : 'block'
+        };
+
+        var fieldStyle = {
+            visibility: this.state.game ? 'visible' : 'hidden',
+            position:'absolute',
+            width: '85%',
+            left: '5%',
+            height: '70%'
+        }
+
+        var gameOverStyle = {
+            visibility: this.state.gameOver ? 'visible' : 'hidden'
+        };
+
+        var targets = [];
+        var colorTarget = randomColor();
+        for (var key in this.state.targets) {
+            targets.push(
+                <Target color={colorTarget} number={this.state.targets[key]} key={key} />
+            );
+        }
+
+        return (
+            <div>
+                <Score startTime={this.state.game} higherNumber={this.state.higherNumber} />
+
+                <div style={buttonStyle}>
+                    <div style={gameOverStyle} className='gameOver'>Game Over!</div>
+
+                    <button style={buttonStyle} onMouseOver={this.playStartSound} onClick={this.startGame}>New Game </button>
+
+                    <div style={hintStyle} className='hint'>Click a higher number every time!</div>
+                </div>
+
+                <div style={fieldStyle} onClick={this.hitTarget} >{targets}</div>
+            </div>
     );
   }
-}
+};
 
 export default App;

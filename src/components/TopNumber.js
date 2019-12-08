@@ -7,7 +7,7 @@ class TopNumber extends React.Component {
         highest: 0
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.number > this.state.highest) {
             this.setState({
                 highest: nextProps.number
