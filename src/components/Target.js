@@ -1,12 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import random from '../util/Helper.random';
 
 class Target extends React.Component {
 
   shouldComponentUpdate(nextProps) {
-    return this.props.number != nextProps.number;
+    return this.props.number !== nextProps.number;
+  }
+
+  random(min, max) {
+    if (arguments.length === 1) {
+      max = min;
+      min = 0;
+    }
+      const r = Math.random();
+      return Math.floor(r * (max - min) + min);
+  }
+
+  clone(obj) {
+    let newObj = {};
+    for (let prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        newObj[prop] = obj[prop];
+      }
+    }
+    return newObj;
   }
 
   buildTarget(){
@@ -17,8 +35,8 @@ class Target extends React.Component {
       });
 
       const style = {
-        left: random(100) + '%',
-        top:  random(100) + '%',
+        left: this.random(100) + '%',
+        top:  this.random(100) + '%',
       };
 
       return (
@@ -29,9 +47,11 @@ class Target extends React.Component {
   }
 
   render() {
+    return (
       <>
         {this.buildTarget()}
       </>
+    );
   }
 }
 
@@ -39,4 +59,4 @@ Target.propTypes = {
     number: PropTypes.number.isRequired,
 }
 
-module.exports = Target;
+export default Target;

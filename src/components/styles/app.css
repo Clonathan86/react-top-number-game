@@ -1,0 +1,6 @@
+.target-container {
+    position: absolute;
+    width:  50%;
+    left:   25%;
+    height: 80%;
+}

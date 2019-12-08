@@ -1,4 +1,5 @@
 import React from  'react';
+import PropTypes from 'prop-types';
 import './styles/display.css';
 
 function Display (props) {
@@ -10,7 +11,7 @@ function Display (props) {
 }
 
 Display.propTypes = {
-	number: React.PropTypes.number.isRequired,
+	number: PropTypes.number.isRequired,
 };
 
 export default Display;
