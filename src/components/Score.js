@@ -11,14 +11,14 @@ class Score extends React.Component {
     clearInterval(this.timer)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(nextProps.startTime && (nextProps.startTime !== this.props.startTime)){
       this.setState({count: 0})
       this.startTimer();
     }else if(!nextProps.startTime){
       this.stopTimer();
     }
-    this.setState({score: Math.round(parseInt(this.props.higherNumber)-parseInt(this.state.count * 10000))})
+    this.setState({score: Math.round(parseInt(this.props.higherNumber)-parseInt(this.state.count * 10))})
   }
 
   tick () {

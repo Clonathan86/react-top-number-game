@@ -112,6 +112,7 @@ button:active {
 .timer {
   color: white;
   display: flex;
+  padding-bottom: 10rem;;
 }
 
 .timer h1{

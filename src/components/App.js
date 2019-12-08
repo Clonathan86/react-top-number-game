@@ -20,7 +20,7 @@ class App extends React.Component {
     state = {
       game: false,
       targets: {},
-      targetNumbers: 0,
+      targetNumbers: 1,
       latestClick: 0,
       topNumber: 200,
       higherNumber: 0
@@ -29,16 +29,15 @@ class App extends React.Component {
     intervals=  null;
 
     createTarget(key, ms) {
-
-        ms = ms || random(500, 2000);
+        ms = ms || random(1000, 2000);
         this.setState(
             {
-                targetNumbers: this.targetNumbers + 1,
+                targetNumbers: this.state.targetNumbers + 1,
             }
         );
         this.intervals.push(setInterval(function(){
             var targets = clone(this.state.targets);
-            var num = random(1, this.state.topNumber * 1000);
+            var num = random(1, this.state.topNumber) + random(1, this.state.topNumber);
             targets[key] = targets[key] !== 0 ? 0 : num;
             this.setState({ targets: targets });
         }.bind(this), ms));
@@ -48,10 +47,8 @@ class App extends React.Component {
         if (e.target.className !== 'target') return;
         var num = parseInt(e.target.innerText);
         if(this.state.targetNumbers < 24){
-            for (var target in this.state.targets) {
-                var key = Math.random().toFixed(4);
-                this.createTarget(key);
-            }
+            var key = Math.random().toFixed(4);
+            this.createTarget(key);
         }
 
         var top = this.state.topNumber;
@@ -65,14 +62,14 @@ class App extends React.Component {
 
     startGame = () => {
         //playSongSound();
-        this.createTarget('first', 750);
+        this.createTarget('first', 5000);
         this.setState({
             game: true,
             gameOver: false,
             latestClick:  0,
             topNumber:    200,
             higherNumber: 0,
-            targetNumbers: 0
+            targetNumbers: 1
         });
     }
 
@@ -92,16 +89,15 @@ class App extends React.Component {
             gameOver:     true,
             targets:      {},
             latestClick:  0,
-            targetNumbers: 0
+            targetNumbers: 1
         });
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.intervals = [];
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('HELLO');
         if (this.state.latestClick < prevState.latestClick) {
             this.endGame();
         }
