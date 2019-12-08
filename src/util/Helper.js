@@ -1,4 +1,8 @@
 function random(min, max) {
+	if (arguments.length == 1) {
+		max = min;
+		min = 0;
+	}
     const r = Math.random();
     return Math.floor(r * (max - min) + min);
 }

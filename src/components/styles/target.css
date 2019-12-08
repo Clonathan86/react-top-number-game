@@ -1,0 +1,13 @@
+.target {
+    position: absolute;
+    font-size: 40px;
+    cursor: pointer,
+}
+
+.target--visible {
+    visibility: visible;
+}
+
+.target--hidden {
+    visibility: hidden;
+}
