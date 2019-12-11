@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 var random = require('./Helper').random;
 
 class Target extends React.Component {
@@ -21,4 +21,4 @@ class Target extends React.Component {
     }
 }
 
-module.exports = Target;
+export default Target;
