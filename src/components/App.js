@@ -1,19 +1,7 @@
 import React from 'react';
-var random = require('./Helper').random;
-var randomColor = require('./Helper').randomColor;
-var clone = require('./Helper').clone;
-//var Display = require('./Display');
-var Target = require('./Target');
-var Score = require('./Score');
-
-/*
-var playStartSound = require('./Helper').playStartSound;
-var playSongSound = require('./Helper').playSongSound;
-var pauseSongSound = require('./Helper').pauseSongSound;
-var playBleepSound = require('./Helper').playBleepSound;
-var playGameOverSound = require('./Helper').playGameOverSound;
-var Ranking = require('./Ranking');
-*/
+import { random, randomColor, clone  } from './Helper';
+import Target from './Target';
+import Score from './Score';
 
 class App extends React.Component {
 
@@ -26,7 +14,7 @@ class App extends React.Component {
       higherNumber: 0
     }
 
-    intervals=  null;
+    intervals =  null;
 
     createTarget(key, ms) {
         ms = ms || random(1000, 2000);
@@ -62,7 +50,7 @@ class App extends React.Component {
 
     startGame = () => {
         //playSongSound();
-        this.createTarget('first', 5000);
+        this.createTarget('first', 1000);
         this.setState({
             game: true,
             gameOver: false,
@@ -119,7 +107,7 @@ class App extends React.Component {
             width: '85%',
             left: '5%',
             height: '70%'
-        }
+        };
 
         var gameOverStyle = {
             visibility: this.state.gameOver ? 'visible' : 'hidden'
@@ -147,8 +135,8 @@ class App extends React.Component {
 
                 <div style={fieldStyle} onClick={this.hitTarget} >{targets}</div>
             </div>
-    );
-  }
-};
+        );
+    }
+}
 
 export default App;
