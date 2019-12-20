@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-top-number-game/precache-manifest.db1cbcb4e0ffce45c08057ae11bc07ce.js"
+  "/react-top-number-game/precache-manifest.256c527eb5d8f2e061e62e0a86cb0ceb.js"
 );
 
 self.addEventListener('message', (event) => {
