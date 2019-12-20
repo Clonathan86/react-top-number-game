@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 class Score extends React.Component {
 
@@ -48,4 +48,4 @@ class Score extends React.Component {
   }
 }
 
-module.exports = Score;
+export default Score;
