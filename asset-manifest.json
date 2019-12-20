@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/react-top-number-game/static/css/main.e660ad5b.chunk.css",
-    "main.js": "/react-top-number-game/static/js/main.f6f2492a.chunk.js",
-    "main.js.map": "/react-top-number-game/static/js/main.f6f2492a.chunk.js.map",
+    "main.js": "/react-top-number-game/static/js/main.8fe5cffd.chunk.js",
+    "main.js.map": "/react-top-number-game/static/js/main.8fe5cffd.chunk.js.map",
     "runtime-main.js": "/react-top-number-game/static/js/runtime-main.385830b3.js",
     "runtime-main.js.map": "/react-top-number-game/static/js/runtime-main.385830b3.js.map",
-    "static/js/2.7e931aa1.chunk.js": "/react-top-number-game/static/js/2.7e931aa1.chunk.js",
-    "static/js/2.7e931aa1.chunk.js.map": "/react-top-number-game/static/js/2.7e931aa1.chunk.js.map",
+    "static/js/2.fa6e6b68.chunk.js": "/react-top-number-game/static/js/2.fa6e6b68.chunk.js",
+    "static/js/2.fa6e6b68.chunk.js.map": "/react-top-number-game/static/js/2.fa6e6b68.chunk.js.map",
     "index.html": "/react-top-number-game/index.html",
-    "precache-manifest.7b79088d3d57a6377c14e76d54d48fcb.js": "/react-top-number-game/precache-manifest.7b79088d3d57a6377c14e76d54d48fcb.js",
+    "precache-manifest.4f9406aed1dd390502c858f391372b57.js": "/react-top-number-game/precache-manifest.4f9406aed1dd390502c858f391372b57.js",
     "service-worker.js": "/react-top-number-game/service-worker.js",
     "static/css/main.e660ad5b.chunk.css.map": "/react-top-number-game/static/css/main.e660ad5b.chunk.css.map",
-    "static/js/2.7e931aa1.chunk.js.LICENSE": "/react-top-number-game/static/js/2.7e931aa1.chunk.js.LICENSE"
+    "static/js/2.fa6e6b68.chunk.js.LICENSE": "/react-top-number-game/static/js/2.fa6e6b68.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.385830b3.js",
-    "static/js/2.7e931aa1.chunk.js",
+    "static/js/2.fa6e6b68.chunk.js",
     "static/css/main.e660ad5b.chunk.css",
-    "static/js/main.f6f2492a.chunk.js"
+    "static/js/main.8fe5cffd.chunk.js"
   ]
 }
